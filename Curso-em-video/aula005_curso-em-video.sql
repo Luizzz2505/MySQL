@@ -103,6 +103,7 @@ where ano = '2050'
 limit 2;
 
 -- agora vou apagar todos os registros de uma tabela
+-- truncate apaga somente os registros, diferentemente do drop que apaga a estrutura da tabela também
 truncate table cursos; -- table é opcional 
 
 select * from cursos;  
