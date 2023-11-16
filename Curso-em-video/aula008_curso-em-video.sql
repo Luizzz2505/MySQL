@@ -1,46 +1,45 @@
 use cadastro;
 
--- com o distinct vai ser mostrado apenas um dado de cada, sem repetição
+-- distinguindo
+-- o distinct considera apenas uma ocorrência de cada valor nos registros (considerando apenas o primeiro)
 select distinct carga from cursos
 order by carga;
 
--- agrupando os dados e mostrando quantos existem
+-- agrupando
+select carga from cursos
+group by carga;
+
+-- agrupando e agregando. aqui vou usar o count, porque quando os registros estão agrupados ele vai me permitir vizualizar quantos de cada existe
 select totaulas, count(*) from cursos
 group by totaulas
 order by totaulas;
 
--- comparando
-select * from cursos
-where totaulas = 30;
-
-select * from cursos
-where totaulas > 20;
-
--- teste
-select totaulas, count(*)  from cursos
-where totaulas > 30;
-
-select carga, count(*) from cursos 
+select carga, count(*) from cursos
 where totaulas = 30
 group by carga;
-
-select * from cursos
-where totaulas = 30;
-
-select carga, count(nome) from cursos
-group by carga;
-
-select * from cursos 
-group by ano;
 
 select ano, count(*) from cursos
 group by ano
 order by count(*) desc;
 
--- o having é muito semelhante ao where. having só funciona se a seleção for a mesma do group by
+
+-- o having para o group by é semelhante ao where para o select
+-- o having só trabalha com o campo que você agrupou (group by)
+select ano, count(*) from cursos
+group by ano 
+having count(ano) >= 5
+order by count(*) desc;
+
+-- exemplo do having
+-- esta query não funciona justamente porque o group by está usando o ano e não o totaulas
 select ano, count(*) from cursos
 group by ano
-having count(ano) >= 5
+having totaualas > 30
+order by count(*) desc;
+
+select ano, count(*) from cursos
+group by ano
+having ano > 2013
 order by count(*) desc;
 
 select ano, count(*) from cursos
@@ -48,15 +47,14 @@ where totaulas > 30
 group by ano
 having ano > 2013
 order by count(*) desc;
--- media
+
 select avg(carga) from cursos;
 
--- select dentro de outro
+-- select dentro de outro 
 select carga, count(*) from cursos
 where ano > 2015
 group by carga
 having carga > (select avg(carga) from cursos);
-
 
 
 
